@@ -18,7 +18,6 @@ datasets
 # inputs and outputs files and folders
 inputs
 outputs
-reports
 
 # others
 main.py
