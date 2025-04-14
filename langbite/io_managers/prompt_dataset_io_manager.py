@@ -53,6 +53,7 @@ class JSONPromptIOManager(AbstractPromptIOManager):
     
     def load_prompts(self, prompts, input_language):
         data = json.loads(prompts)
+        print(f"Loaded data: {data}")
         # Convert the dictionary to a DataFrame
         prompts_df = pandas.DataFrame(data)
         prompts_df = prompts_df.replace(np.nan, None)

@@ -104,6 +104,7 @@ class Oracle:
     def evaluate(self, responses: list[PromptResponse], llm_sentiment: SentimentAnalyzerOracle) -> OracleResultKind:
         if (not self.is_valid_prediction): return OracleResultKind.Error.name
         else:
+            print(f"Evaluating response for oracle: {self.__class__.__name__}")
             self.llm_sentiment = llm_sentiment
             return self.evaluateConcrete(responses)
 

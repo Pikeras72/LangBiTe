@@ -15,6 +15,7 @@ for builder in builders:
         factory.register_builder(builder['key'], OpenAIChatServiceBuilder(builder['model'].lower()))
     if provider == 'HUGGINGFACE':
         factory.register_builder(builder['key'], HuggingFaceConversationalServiceBuilder(builder['model'].lower(), builder['inference_api_url']))
+        print(f"Connecting to {provider} with model {builder['model'].lower()}")
     if provider == 'OLLAMA':
         factory.register_builder(builder['key'], OLlamaServiceBuilder(builder['model'].lower()))
     if provider == 'REPLICATE':

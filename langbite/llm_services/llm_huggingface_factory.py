@@ -32,6 +32,6 @@ class HuggingFaceService(LLMService):
 
 class HuggingFaceConversationalService(HuggingFaceService):
     def execute_prompt(self, prompt):
-        payload = {"inputs": prompt, "parameters": {"return_full_text": False, "temperature": self.temperature, "max_new_tokens": self.tokens}}
+        payload = {"inputs": prompt, "parameters": {"temperature": self.temperature, "max_new_tokens": self.tokens}}
         output = self.query(payload)
         return output[0]['generated_text']

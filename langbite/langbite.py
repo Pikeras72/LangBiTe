@@ -109,11 +109,11 @@ class AbstractLangBiTe:
         if (self.__requirements_file_empty): raise RequirementsFileRequiredException
         # load test scenario
         scenario_io = ScenarioIOManager()
+        print(f"Loading scenario from: {self.requirements_file}")
         if self.requirements_file:
             self.__test_scenario = TestScenario(scenario_io.load_scenario(self.requirements_file))
         elif self.requirements_dict:
             self.__test_scenario = TestScenario(self.requirements_dict)
-    
         # test generation
         self.__test_scenario.prompts = self.load_prompts()
         # aux: for output reasons
@@ -123,6 +123,7 @@ class AbstractLangBiTe:
     def execute(self):
         if (self.__current_status != 1): raise WrongStateException
         time_ini = datetime.now()
+        print("Execution started at:", time_ini)
         # test execution and evaluation
         print("TEST SCENARIO ", self.__test_scenario)
         transaction = TestExecution(self.__test_scenario)
@@ -132,9 +133,12 @@ class AbstractLangBiTe:
         time_end = datetime.now()
         print(f'Time elapsed for executing {self.__num_instances} instances (from {self.__num_prompts} prompt templates): ' + str(time_end - time_ini))
         self.__current_status = 2
+        print("Execution completed.")
 
     def report(self, path=None):
         if (self.__current_status != 2): raise WrongStateException
+        print("Generating report...")
+        print("Evaluating results") 
         global_evaluator = GlobalEvaluator()
         global_evaluation = global_evaluator.evaluate(self.__evaluations, self.__test_scenario.ethical_requirements)
         reporting_io = ReportingIOManager()
@@ -166,6 +170,7 @@ class LangBiTe(AbstractLangBiTe):
             self.__prompts_path = prompts_path
     
     def load_prompts(self):
+        print("Cargando los prompts desde el JSON.")
         return self.prompt_io.load_prompts(self.__prompts_path, self._AbstractLangBiTe__test_scenario.languages)
     
 
